@@ -15,6 +15,9 @@ export const Characters = () => {
 	}, []);
 
 
+
+    
+
 	return (
 		<div className="all-things-people">
 			<div className="people-text">Characters</div>
