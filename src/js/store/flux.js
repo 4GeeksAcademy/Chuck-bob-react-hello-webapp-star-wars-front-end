@@ -1,20 +1,43 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			// demo: [
+			// 	{
+			// 		title: "FIRST",
+			// 		background: "white",
+			// 		initial: "white"
+			// 	},
+			// 	{
+			// 		title: "SECOND",
+			// 		background: "white",
+			// 		initial: "white"
+			// 	},
+			// 	],
+				favorites: []
 		},
 		actions: {
+				addFavorite: (name, uid, type) => {
+					let newFave = {name: name, uid:uid, type: type};
+					let newArr = [...getStore().favorites, newFave];
+					//make some changes to favorites array locally
+					setStore( { favorites: newArr //local updated favorites array
+						})
+				},
+
+				deleteFavorite: (name) => {
+					let fileredArray = getStore().favorites.filter(
+						(element) => {
+							element.name != name
+						}
+					);
+					//filter a favortie from copy of favorites array
+					setStore( { favorites: filteredArray
+						//new filtered local favorites array 
+						})
+					
+				},
+
+
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
