@@ -1,0 +1,57 @@
+/* Style for the main container */
+.detail-topper {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+}
+
+/* Style for the image */
+.detail-image {
+	width: 150px;
+	height: 150px;
+	background-color: #f0f0f0; /* Placeholder color for the image */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 16px;
+	margin-right: 20px;
+}
+
+/* Style for the name and description container */
+.detail-name-description {
+	display: flex;
+	flex-direction: column;
+}
+
+.detail-name {
+	font-size: 24px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+
+.detail-description {
+	font-size: 16px;
+	color: #555;
+}
+
+/* Style for the bottom section */
+.detail-bottom {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+	border-top: 1px solid #ddd;
+}
+
+/* Style for each detail item in the bottom section */
+.detail-bottom > div {
+	flex: 1;
+	text-align: center;
+	padding: 10px;
+	font-size: 14px;
+	border-right: 1px solid #ddd;
+}
+
+.detail-bottom > div:last-child {
+	border-right: none;
+}

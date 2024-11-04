@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/home.css";
-import Card from "./card";
+import CardChar from "./cardchar";
 
 
 export const Characters = () => {
@@ -16,7 +16,7 @@ export const Characters = () => {
 
 
 
-    
+
 
 	return (
 		<div className="all-things-people">
@@ -26,7 +26,7 @@ export const Characters = () => {
 					<div className="row">
 						{people.map((person, index) => (
 							<div className="col-md-3 mb-4" key={index}>
-								<Card name={person.name} />
+								<CardChar name={person.name} url={person.url} />
 							</div>
 						))}
 					</div>
