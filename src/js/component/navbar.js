@@ -37,7 +37,7 @@ export const Navbar = () => {
 									className="btn btn-sm btn-danger"
 									onClick={() => actions.deleteFavorite(favorite.name)}
 								>
-									&times;
+									X
 								</button>
 							</li>
 						))

@@ -13,29 +13,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// 		initial: "white"
 			// 	},
 			// 	],
-				favorites: []
+			favorites: []
 		},
 		actions: {
-				addFavorite: (name, uid, type) => {
-					let newFave = {name: name, uid:uid, type: type};
-					let newArr = [...getStore().favorites, newFave];
-					//make some changes to favorites array locally
-					setStore( { favorites: newArr //local updated favorites array
-						})
-				},
+			addFavorite: (name, uid, type) => {
+				let newFave = { name: name, uid: uid, type: type };
+				let newArr = [...getStore().favorites, newFave];
+				//make some changes to favorites array locally
+				setStore({
+					favorites: newArr //local updated favorites arraygi
+				})
+			},
 
-				deleteFavorite: (name) => {
-					let fileredArray = getStore().favorites.filter(
-						(element) => {
-							element.name != name
-						}
-					);
-					//filter a favortie from copy of favorites array
-					setStore( { favorites: filteredArray
-						//new filtered local favorites array 
-						})
-					
-				},
+			deleteFavorite: (name) => {
+				let filteredArray = getStore().favorites.filter(
+					(element) => element.name !== name
+				);
+				setStore({ favorites: filteredArray });
+			},
+
 
 
 			// Use getActions to call a function within a fuction
