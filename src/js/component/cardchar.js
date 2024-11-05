@@ -8,17 +8,17 @@ import { Context } from "../store/appContext";
 const CardChar = (props) => {
 
 	const [character, setCharacter] = useState([]); // Initialize as an empty array
-    const [uid, setUid] = useState("");
+	const [uid, setUid] = useState("");
 	const { store, actions } = useContext(Context);
 
 	useEffect(() => {
 		fetch(props.url)
 			.then(res => res.json())
 			.then((data) => {
-                setCharacter(data.result.properties)
-                setUid(data.result.uid)
-            }
-        ) // Use data.results to get the array of planets
+				setCharacter(data.result.properties)
+				setUid(data.result.uid)
+			}
+			) // Use data.results to get the array of planets
 			.catch(err => console.error("Error fetching characters:", err));
 	}, [props.url]);
 
@@ -28,11 +28,17 @@ const CardChar = (props) => {
 			<div className="card-body d-flex flex-column">
 				<h1 className="card-title">{character.name}</h1>
 				<h5 className="card-height">Height: {character.height}</h5>
-			    <h5 className="card-title">Mass: {character.mass}</h5>
+				<h5 className="card-title">Mass: {character.mass}</h5>
 				<h5 className="card-title">Gender: {character.gender}</h5>
-                <Link to={"/chardetail/" + uid}><button>Button</button>
-							</Link>
-				<button onClick= {() => actions.addFavorite(character.name, uid, "character")} >Add Favorite</button>
+				<Link to={"/chardetail/" + uid}><button>Button</button>
+				</Link>
+				<button
+					onClick={() => actions.addFavorite(character.name, uid, "characters")}
+					className="favorite-button"
+				>
+					&#9829;
+				</button>
+
 			</div>
 		</div>
 	);

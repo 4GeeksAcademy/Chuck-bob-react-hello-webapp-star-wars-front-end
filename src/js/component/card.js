@@ -25,16 +25,20 @@ const Card = (props) => {
 
 	return (
 		<div className="card h-100">
-			<div className="card-body d-flex flex-column">
+			<div className="card-body">
 				<h1 className="card-title">{planet.name}</h1>
-				<h5 className="card-title">Terrain: {planet.terrain}</h5>
-				<h5 className="card-title">Gravity: {planet.gravity}</h5>
-				<h5 className="card-title">Population: {planet.population}</h5>
+				<h5 className="card-terrnain">Terrain: {planet.terrain}</h5>
+				<h5 className="card-gravity">Gravity: {planet.gravity}</h5>
+				<h5 className="card-population">Population: {planet.population}</h5>
 				<Link to={"/planetdetail/" + uid}><button>Button</button>
 				</Link>
-				<button onClick= {() => actions.addFavorite(planet.name, uid, "planets")} >Add Favorite</button>
-				
-				
+				<button
+					onClick={() => actions.addFavorite(planet.name, uid, "planets")}
+					className="favorite-button"
+				>
+					&#9829; {/* This renders a heart symbol */}
+				</button>
+
 				{/* <button onClick={() => actions.deleteFavorite(planet.name)}>delete Favorite</button> */}
 			</div>
 		</div>

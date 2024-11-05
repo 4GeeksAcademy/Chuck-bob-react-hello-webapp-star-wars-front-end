@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import logo from "../../img/star-wars-logo.png"; // Import the image from the src/img folder
+
 
 export const Navbar = () => {
 	const { store, actions } = useContext(Context); // Access store and actions from context
@@ -8,13 +10,9 @@ export const Navbar = () => {
 	return (
 		<nav className="navbar navbar-light bg-light mb-3">
 			<Link to="/">
-				<span className="navbar-brand mb-0 h1">Star Wars</span>
+			<img src={logo} alt="Star Wars Logo" style={{ width: "100px", marginRight: "10px" }} /> {/* Logo image */}
 			</Link>
-			<div className="ml-auto">
-				<Link to="/demo">
-					<button className="btn btn-primary">Ugh...</button>
-				</Link>
-			</div>
+		
 
 			<div className="dropdown">
 				<button

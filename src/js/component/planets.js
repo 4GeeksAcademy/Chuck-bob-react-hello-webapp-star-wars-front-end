@@ -19,10 +19,10 @@ export const Planets = () => {
 		<div className="all-things-planets">
 			<div className="planets-text">PLANETS</div>
 			<div className="planet-container">
-				<div className="container my-5">
-					<div className="row">
+				<div className="container">
+					<div className="planets">
 						{planets.map((planet, index) => (
-							<div className="col-md-3 mb-4" key={index}>
+							<div className="planet" key={index}>
 								<Card name={planet.name} url={planet.url} />
 							</div>
 						))}
