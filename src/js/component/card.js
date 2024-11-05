@@ -6,9 +6,7 @@ import { Context } from "../store/appContext";
 const Card = (props) => {
 
 	const [planet, setPlanet] = useState([]); // Initialize as an empty array
-
 	const [uid, setUid] = useState("");
-
 	const { store, actions } = useContext(Context);
 
 

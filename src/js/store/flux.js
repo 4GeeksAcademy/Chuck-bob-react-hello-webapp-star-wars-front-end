@@ -1,29 +1,29 @@
+import { findAllInRenderedTree } from "react-dom/test-utils";
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			// demo: [
-			// 	{
-			// 		title: "FIRST",
-			// 		background: "white",
-			// 		initial: "white"
-			// 	},
-			// 	{
-			// 		title: "SECOND",
-			// 		background: "white",
-			// 		initial: "white"
-			// 	},
-			// 	],
 			favorites: []
 		},
 		actions: {
 			addFavorite: (name, uid, type) => {
-				let newFave = { name: name, uid: uid, type: type };
-				let newArr = [...getStore().favorites, newFave];
-				//make some changes to favorites array locally
-				setStore({
-					favorites: newArr //local updated favorites arraygi
-				})
+				const store = getStore(); // Retrieve the latest store
+			
+				// Use the find method to check if an item with the same uid already exists
+				const existingFavorite = store.favorites.find((favorite) => favorite.uid === uid);
+			
+				if (!existingFavorite) {
+					// If the item does not exist, add it to favorites
+					const newFave = { name, uid, type };
+					const newArr = [...store.favorites, newFave];
+					setStore({
+						favorites: newArr // Updated favorites array
+					});
+				} else {
+					getActions().deleteFavorite(name);
+				}
 			},
+			
 
 			deleteFavorite: (name) => {
 				let filteredArray = getStore().favorites.filter(

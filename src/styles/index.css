@@ -1,195 +1,145 @@
 /* Global Styling */
 body {
-	font-family: 'Arial', sans-serif;
-	background-color: #f8f9fa;
-	color: #333;
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Card Component Styling */
-.card {
-	flex: 0 0 auto; /* Prevents cards from shrinking or wrapping */
-	width: 250px;
-	margin: 10px 0;
-	border: none;
-	border-radius: 10px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	transition: transform 0.3s ease, box-shadow 0.3s ease;
-	background-color: #fff;
-}
-
-.card:hover {
-	transform: translateY(-5px);
-	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.card-body {
-	padding: 20px;
-	text-align: left;
-	background-color: #fff;
-	border-radius: 10px;
-}
-
-.card-title {
-	font-size: 18px;
-	font-weight: bold;
-	margin-bottom: 10px;
-	color: #333;
-}
-
-/* Bold styling for card details */
-.card-details {
-	color: #555;
-	margin-bottom: 10px;
-}
-
-.card-details span {
-	font-weight: bold;
-}
-
-/* Button Styling */
-.button-container {
-	display: flex;
-	justify-content: space-between;
-	margin-top: 15px;
-}
-
-.button-learn-more {
-	padding: 8px 16px;
-	background-color: #007bff;
-	color: #fff;
-	border: 1px solid #007bff;
-	border-radius: 5px;
-	cursor: pointer;
-	text-decoration: none;
-	font-size: 14px;
-	transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.button-learn-more:hover {
-	background-color: #0056b3;
-	border-color: #0056b3;
-}
-
-.button-favorite {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 35px;
-	height: 35px;
-	border: 1px solid #ffc107;
-	background-color: transparent;
-	color: #ffc107;
-	border-radius: 50%;
-	font-size: 18px;
-	cursor: pointer;
-	transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.button-favorite:hover {
-	background-color: #ffc107;
-	color: #fff;
-}
-
-/* Horizontal Scroll Container for Home Page */
+/* Horizontal Scroll Box Styling */
 .people-container, .planet-container {
-	display: flex;
-	overflow-x: auto;
-	padding: 20px;
-	gap: 20px;
+    display: flex;
+    overflow-x: scroll; /* Enables horizontal scrolling */
+    overflow-y: hidden; /* Hides vertical overflow */
+    white-space: nowrap; /* Prevents wrapping to new lines */
+    gap: 20px; /* Space between items */
+    padding: 20px;
+    scroll-behavior: smooth; /* Smooth scrolling effect */
 }
 
 .people-container::-webkit-scrollbar, .planet-container::-webkit-scrollbar {
-	height: 8px;
-	background-color: #e0e0e0;
+    height: 8px; /* Horizontal scrollbar height */
+    background-color: #e0e0e0;
 }
 
 .people-container::-webkit-scrollbar-thumb, .planet-container::-webkit-scrollbar-thumb {
-	background-color: #007bff;
-	border-radius: 10px;
+    background-color: #007bff;
+    border-radius: 10px;
 }
 
-/* Detail Page Styling */
+/* Individual Card Styling */
+.card {
+    flex: 0 0 auto; /* Prevents cards from shrinking or wrapping */
+    width: 250px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-body {
+    padding: 20px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+/* Card Title Styling */
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Detail Page Layout */
 .detail-topper {
-	display: flex;
-	align-items: center;
-	padding: 20px;
-	background-color: #fff;
-	border-radius: 10px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
 .detail-image {
-	width: 150px;
-	height: 150px;
-	background-color: #e0e0e0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 16px;
-	margin-right: 20px;
-	border-radius: 10px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 150px;
+    height: 150px;
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    margin-right: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .detail-name-description {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
 }
 
 .detail-name {
-	font-size: 24px;
-	font-weight: bold;
-	margin-bottom: 10px;
-	color: #007bff;
-	text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #007bff;
+    text-align: center;
 }
 
 .detail-description {
-	font-size: 16px;
-	color: #666;
-	text-align: center;
+    font-size: 16px;
+    color: #666;
+    text-align: center;
 }
 
 /* Bottom Detail Section */
 .detail-bottom {
-	display: flex;
-	justify-content: space-between;
-	padding: 15px;
-	background-color: #fff;
-	border-radius: 10px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
 .detail-bottom > div {
-	flex: 1;
-	text-align: center;
-	padding: 15px;
-	font-size: 14px;
-	border-right: 1px solid #ddd;
-	color: #333;
-	font-weight: bold;
+    flex: 1;
+    text-align: center;
+    padding: 15px;
+    font-size: 14px;
+    border-right: 1px solid #ddd;
+    color: #333;
+    font-weight: bold;
 }
 
 .detail-bottom > div:last-child {
-	border-right: none;
+    border-right: none;
 }
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-	.detail-topper, .detail-bottom {
-		flex-direction: column;
-		align-items: center;
-	}
+    .detail-topper, .detail-bottom {
+        flex-direction: column;
+        align-items: center;
+    }
 
-	.detail-bottom > div {
-		border: none;
-	}
+    .detail-bottom > div {
+        border: none;
+    }
 }

@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 
 
 const CardChar = (props) => {
 
 	const [character, setCharacter] = useState([]); // Initialize as an empty array
-
     const [uid, setUid] = useState("");
+	const { store, actions } = useContext(Context);
 
 	useEffect(() => {
 		fetch(props.url)
@@ -31,6 +32,7 @@ const CardChar = (props) => {
 				<h5 className="card-title">Gender: {character.gender}</h5>
                 <Link to={"/chardetail/" + uid}><button>Button</button>
 							</Link>
+				<button onClick= {() => actions.addFavorite(character.name, uid, "character")} >Add Favorite</button>
 			</div>
 		</div>
 	);
