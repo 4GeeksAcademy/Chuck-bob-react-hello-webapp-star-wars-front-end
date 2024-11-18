@@ -7,22 +7,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			addFavorite: (name, uid, type) => {
-				const store = getStore(); // Retrieve the latest store
+				const store = getStore(); // Access the current store
 			
-				// Use the find method to check if an item with the same uid already exists
+				// Check if the favorite already exists in the store
 				const existingFavorite = store.favorites.find((favorite) => favorite.uid === uid);
 			
 				if (!existingFavorite) {
-					// If the item does not exist, add it to favorites
-					const newFave = { name, uid, type };
-					const newArr = [...store.favorites, newFave];
-					setStore({
-						favorites: newArr // Updated favorites array
-					});
+					// Prepare the favorite object
+					const newFavorite = { name, uid, type };
+			
+					// Send the favorite to the back-end
+					fetch("https://obscure-space-palm-tree-x596gxj994wwfvwg4-3000.app.github.dev/user/1/favorites", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify(newFavorite), // Send favorite details in the request body
+					})
+						.then((res) => res.json())
+						.then((data) => {
+							// Update the global store with the newly added favorite
+							setStore({ favorites: [...store.favorites, data.favorite] });
+						})
+						.catch((err) => console.error("Error adding favorite:", err));
 				} else {
-					getActions().deleteFavorite(name);
+					console.warn("Favorite already exists. Consider toggling or showing a message.");
 				}
 			},
+			
 			
 
 			deleteFavorite: (name) => {
@@ -39,10 +51,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
+				fetch("https://obscure-space-palm-tree-x596gxj994wwfvwg4-3000.app.github.dev/user/1/favorites") // Replace `1` with the appropriate user ID if dynamic
+					.then((res) => res.json())
+					.then((data) => {
+						setStore({ favorites: data }); // Store favorites in the global state
+					})
+					.catch((err) => console.error("Error fetching favorites:", err));
 			},
+			
 			changeColor: (index, color) => {
 				//get the store
 				const store = getStore();
