@@ -8,9 +8,9 @@ export const Characters = () => {
 
 	// Fetch people data when the component mounts
 	useEffect(() => {
-		fetch("https://www.swapi.tech/api/people/")
+		fetch("https://obscure-space-palm-tree-x596gxj994wwfvwg4-3000.app.github.dev/get/initial")
 			.then(res => res.json())
-			.then((data) => setPeople(data.results)) // Use data.results to get the array of planets
+			.then((data) => setPeople(data.people_records)) // Use data.results to get the array of planets
 			.catch(err => console.error("Error fetching planets:", err));
 	}, []);
 
@@ -22,10 +22,10 @@ export const Characters = () => {
 		<div className="all-things-people">
 			<div className="people-text">Characters</div>
 			<div className="people-container">
-				<div className="container my-5">
-					<div className="row">
+				<div className="container">
+					<div className="planets">
 						{people.map((person, index) => (
-							<div className="col-md-3 mb-4" key={index}>
+							<div className="planet" key={index}>
 								<CardChar name={person.name} url={person.url} />
 							</div>
 						))}

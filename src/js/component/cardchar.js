@@ -12,14 +12,15 @@ const CardChar = (props) => {
 	const { store, actions } = useContext(Context);
 
 	useEffect(() => {
-		fetch(props.url)
+		fetch(props.url) // Assuming `props.url` points to `/people/<id>`
 			.then(res => res.json())
-			.then((data) => {
-				setCharacter(data.result.properties)
-				setUid(data.result.uid)
-			}
-			) // Use data.results to get the array of planets
-			.catch(err => console.error("Error fetching characters:", err));
+			.then(data => {
+				if (data) {
+					setCharacter(data); // Adjust if backend response differs
+					setUid(data.id);    // Ensure `data.id` is correct
+				}
+			})
+			.catch(err => console.error("Error fetching character details:", err));
 	}, [props.url]);
 
 

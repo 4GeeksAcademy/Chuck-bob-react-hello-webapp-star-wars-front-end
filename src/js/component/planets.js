@@ -8,9 +8,9 @@ export const Planets = () => {
 
 	// Fetch planets data when the component mounts
 	useEffect(() => {
-		fetch("https://www.swapi.tech/api/planets/")
+		fetch("https://obscure-space-palm-tree-x596gxj994wwfvwg4-3000.app.github.dev/get/initial")
 			.then(res => res.json())
-			.then((data) => setPlanets(data.results)) // Use data.results to get the array of planets
+			.then((data) => setPlanets(data.planet_records)) // Use data.results to get the array of planets
 			.catch(err => console.error("Error fetching planets:", err));
 	}, []);
 

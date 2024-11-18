@@ -11,14 +11,15 @@ const Card = (props) => {
 
 
 	useEffect(() => {
-		fetch(props.url)
+		fetch(props.url) // Assuming `props.url` points to `/people/<id>`
 			.then(res => res.json())
-			.then((data) => {
-				setPlanet(data.result.properties)
-				setUid(data.result.uid)
-			}
-			) // Use data.results to get the array of planets
-			.catch(err => console.error("Error fetching planet:", err));
+			.then(data => {
+				if (data) {
+					setPlanet(data); // Adjust if backend response differs
+					setUid(data.id);    // Ensure `data.id` is correct
+				}
+			})
+			.catch(err => console.error("Error fetching planets details:", err));
 	}, [props.url]);
 
 
