@@ -34,11 +34,13 @@ const CardChar = (props) => {
 				<Link to={"/chardetail/" + uid}><button>Button</button>
 				</Link>
 				<button
-    onClick={() => actions.addFavorite(character.name, character.id, "characters")}
-    className="favorite-button"
->
-    &#9829; {/* Heart symbol */}
-</button>
+					onClick={() => actions.addFavorite(character.name, character.id || character.uid, "characters")}
+					className="favorite-button"
+				>
+					&#9829; {/* Heart symbol */}
+				</button>
+
+
 
 
 			</div>

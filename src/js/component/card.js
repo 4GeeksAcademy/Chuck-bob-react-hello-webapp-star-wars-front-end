@@ -34,11 +34,12 @@ const Card = (props) => {
 				<Link to={"/planetdetail/" + uid}><button>Button</button>
 				</Link>
 				<button
-					onClick={() => actions.addFavorite(planet.name, uid, "planets")}
+					onClick={() => actions.addFavorite(planet.name, planet.id || planet.uid, "planets")}
 					className="favorite-button"
 				>
-					&#9829; {/* This renders a heart symbol */}
+					&#9829; {/* Heart symbol */}
 				</button>
+
 
 				{/* <button onClick={() => actions.deleteFavorite(planet.name)}>delete Favorite</button> */}
 			</div>

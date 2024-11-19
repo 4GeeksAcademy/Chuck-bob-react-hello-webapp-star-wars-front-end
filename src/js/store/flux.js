@@ -7,33 +7,44 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			addFavorite: (name, uid, type) => {
-				const store = getStore(); // Access the current store
+				const store = getStore();
+				const actions = getActions(); // Access actions to call deleteFavorite
 			
-				// Check if the favorite already exists in the store
+				// Check if the favorite already exists
 				const existingFavorite = store.favorites.find((favorite) => favorite.uid === uid);
 			
 				if (!existingFavorite) {
-					// Prepare the favorite object
-					const newFavorite = { name, uid, type };
+					// If the item does not exist, add it to favorites
+					const newFave = { name, uid, type };
 			
-					// Send the favorite to the back-end
 					fetch("https://obscure-space-palm-tree-x596gxj994wwfvwg4-3000.app.github.dev/user/1/favorites", {
-						method: "POST",
+						method: "POST", // Send a POST request to add the favorite
 						headers: {
 							"Content-Type": "application/json",
 						},
-						body: JSON.stringify(newFavorite), // Send favorite details in the request body
+						body: JSON.stringify(newFave), // Send the favorite details in the request body
 					})
-						.then((res) => res.json())
+						.then((res) => {
+							if (!res.ok) throw new Error("Failed to add favorite");
+							return res.json();
+						})
 						.then((data) => {
-							// Update the global store with the newly added favorite
-							setStore({ favorites: [...store.favorites, data.favorite] });
+							if (data && data.favorite) {
+								// Update the favorites in the store
+								setStore({ favorites: [...store.favorites, data.favorite] });
+								console.log("Favorite added successfully:", data.favorite);
+							}
 						})
 						.catch((err) => console.error("Error adding favorite:", err));
 				} else {
-					console.warn("Favorite already exists. Consider toggling or showing a message.");
+					// If the favorite exists, remove it
+					actions.deleteFavorite(name); // Call the deleteFavorite action
 				}
 			},
+			
+			
+			
+			
 			
 			
 

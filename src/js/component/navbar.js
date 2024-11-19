@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import logo from "../../img/star-wars-logo.png";
+import logo from "../../img/star-wars-logo.png"; // Import your logo
 
 export const Navbar = () => {
-    const { store } = useContext(Context); // Access the global store
+    const { store, actions } = useContext(Context); // Access the global store and actions
 
     return (
         <nav className="navbar navbar-light bg-light mb-3">
@@ -19,15 +19,24 @@ export const Navbar = () => {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                 >
-                    Favorites ({store.favorites.length})
+                    Favorites ({store.favorites.length}) {/* Show the count of favorites */}
                 </button>
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
                     {store.favorites.length === 0 ? (
-                        <li className="dropdown-item">No favorites added</li>
+                        <li className="dropdown-item">No favorites added</li> // Show message if no favorites exist
                     ) : (
                         store.favorites.map((favorite, index) => (
-                            <li key={index} className="dropdown-item">
-                                {favorite.name}
+                            <li
+                                key={index}
+                                className="dropdown-item d-flex justify-content-between align-items-center"
+                            >
+                                {favorite.name} {/* Show the favorite name */}
+                                <button
+                                    className="btn btn-sm btn-danger"
+                                    onClick={() => actions.deleteFavorite(favorite.name)} // Call deleteFavorite action
+                                >
+                                    X {/* Delete button */}
+                                </button>
                             </li>
                         ))
                     )}
