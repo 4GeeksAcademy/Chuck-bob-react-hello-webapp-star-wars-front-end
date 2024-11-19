@@ -9,14 +9,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			addFavorite: (name, uid, type) => {
 				const store = getStore();
 				const actions = getActions(); // Access actions to call deleteFavorite
-			
+
 				// Check if the favorite already exists
-				const existingFavorite = store.favorites.find((favorite) => favorite.uid === uid);
-			
+				const existingFavorite = store.favorites.find((favorite) => favorite.name === name);
+
 				if (!existingFavorite) {
 					// If the item does not exist, add it to favorites
 					const newFave = { name, uid, type };
-			
+
 					fetch("https://obscure-space-palm-tree-x596gxj994wwfvwg4-3000.app.github.dev/user/1/favorites", {
 						method: "POST", // Send a POST request to add the favorite
 						headers: {
@@ -41,20 +41,43 @@ const getState = ({ getStore, getActions, setStore }) => {
 					actions.deleteFavorite(name); // Call the deleteFavorite action
 				}
 			},
-			
-			
-			
-			
-			
-			
+
+
+
+
+
+
 
 			deleteFavorite: (name) => {
-				let filteredArray = getStore().favorites.filter(
-					(element) => element.name !== name
-				);
-				setStore({ favorites: filteredArray });
+				const store = getStore();
+			
+				// Find the favorite to delete by name
+				const favoriteToDelete = store.favorites.find((favorite) => favorite.name === name);
+			
+				if (!favoriteToDelete) {
+					console.error("Favorite not found");
+					return;
+				}
+			
+				// Send DELETE request to the back end
+				fetch(`https://obscure-space-palm-tree-x596gxj994wwfvwg4-3000.app.github.dev/user/1/favorites/${favoriteToDelete.id}`, {
+					method: "DELETE",
+				})
+					.then((res) => {
+						if (!res.ok) throw new Error("Failed to delete favorite");
+						return res.json();
+					})
+					.then(() => {
+						// Update the front-end store to remove the deleted favorite
+						const filteredArray = store.favorites.filter(
+							(element) => element.id !== favoriteToDelete.id
+						);
+						setStore({ favorites: filteredArray }); // Update the store
+						console.log("Favorite deleted successfully");
+					})
+					.catch((err) => console.error("Error deleting favorite:", err));
 			},
-
+			
 
 
 			// Use getActions to call a function within a fuction
@@ -69,7 +92,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					.catch((err) => console.error("Error fetching favorites:", err));
 			},
-			
+
 			changeColor: (index, color) => {
 				//get the store
 				const store = getStore();
