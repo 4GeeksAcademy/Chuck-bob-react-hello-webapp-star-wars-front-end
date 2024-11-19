@@ -10,7 +10,7 @@ const CardChar = (props) => {
 	const [character, setCharacter] = useState({}); // Initialize as an empty array
 	const { store, actions } = useContext(Context);
 
-	const [uid, setUid] = useState(0);
+	const [char_id, setCharId] = useState(0);
 
 
 
@@ -22,7 +22,7 @@ const CardChar = (props) => {
 					setCharacter(data); // Adjust if backend response differs
 					let splitUrl = data.url.split('/');
 					let id = splitUrl[splitUrl.length - 2];
-					setUid(id);// Ensure `data.id` is correct
+					setC(id);// Ensure `data.id` is correct
 				}
 			})
 			.catch(err => console.error("Error fetching character details:", err));
@@ -36,18 +36,14 @@ const CardChar = (props) => {
 				<h5 className="card-height">Height: {character.height}</h5>
 				<h5 className="card-title">Mass: {character.mass}</h5>
 				<h5 className="card-title">Gender: {character.gender}</h5>
-				<Link to={"/chardetail/" + uid}><button>Button</button>
+				<Link to={"/chardetail/" + char_id}><button>Button</button>
 				</Link>
 				<button
-					onClick={() => actions.addFavorite(character.name, uid, "characters")}
+					onClick={() => actions.addFavorite(character.name, store.uid, "characters")}
 					className="favorite-button"
 				>
 					&#9829;
 				</button>
-
-
-
-
 			</div>
 		</div>
 	);

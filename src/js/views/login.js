@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { Context } from "../store/appContext";
+
 
 const Login = () => {
     const [email, setEmail] = useState(""); // State for email input
     const [password, setPassword] = useState(""); // State for password input
     const [error, setError] = useState(""); // State for error messages
     const navigate = useNavigate(); // React Router navigation
+    const { store, actions } = useContext(Context);
 
     // Function to handle creating a new user
     const handleCreateUser = (e) => {
@@ -44,6 +47,7 @@ const Login = () => {
             .then((res) => res.json()) // Parse JSON response
             .then((data) => {
                 if (data.message === "Login successful") {
+                    actions.setUid(data.user.id)
                     setError(""); // Clear error
                     alert("Login successful!"); // Notify user
                     navigate("/"); // Redirect to home page

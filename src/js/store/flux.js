@@ -1,11 +1,16 @@
+import { object } from "prop-types";
 import { findAllInRenderedTree } from "react-dom/test-utils";
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			favorites: []
+			favorites: [],
+			uid: null
 		},
 		actions: {
+			setUid: (uid) => {
+				setStore({uid:uid})
+			},
 			addFavorite: (name, uid, type) => {
 				const store = getStore();
 				const actions = getActions(); // Access actions to call deleteFavorite
@@ -17,7 +22,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					// If the item does not exist, add it to favorites
 					const newFave = { name, uid, type };
 
-					fetch("https://obscure-space-palm-tree-x596gxj994wwfvwg4-3000.app.github.dev/user/1/favorites", {
+					fetch(`https://obscure-space-palm-tree-x596gxj994wwfvwg4-3000.app.github.dev/user/${uid}/favorites`, {
 						method: "POST", // Send a POST request to add the favorite
 						headers: {
 							"Content-Type": "application/json",
@@ -48,36 +53,36 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 
-			deleteFavorite: (name) => {
-				const store = getStore();
-			
-				// Find the favorite to delete by name
-				const favoriteToDelete = store.favorites.find((favorite) => favorite.name === name);
-			
-				if (!favoriteToDelete) {
-					console.error("Favorite not found");
-					return;
-				}
-			
-				// Send DELETE request to the back end
-				fetch(`https://obscure-space-palm-tree-x596gxj994wwfvwg4-3000.app.github.dev/user/1/favorites/${favoriteToDelete.id}`, {
-					method: "DELETE",
-				})
-					.then((res) => {
-						if (!res.ok) throw new Error("Failed to delete favorite");
-						return res.json();
-					})
-					.then(() => {
-						// Update the front-end store to remove the deleted favorite
-						const filteredArray = store.favorites.filter(
-							(element) => element.id !== favoriteToDelete.id
-						);
-						setStore({ favorites: filteredArray }); // Update the store
-						console.log("Favorite deleted successfully");
-					})
-					.catch((err) => console.error("Error deleting favorite:", err));
-			},
-			
+deleteFavorite: (name) => {
+    const store = getStore();
+
+    // Find the favorite to delete by name
+    const favoriteToDelete = store.favorites.find((favorite) => favorite.name === name);
+
+    if (!favoriteToDelete) {
+        console.error("Favorite not found");
+        return;
+    }
+
+    // Send DELETE request to the back end
+    fetch(`https://obscure-space-palm-tree-x596gxj994wwfvwg4-3000.app.github.dev/user/${getStore().uid}/favorites/${favoriteToDelete.id}`, {
+        method: "DELETE",
+    })
+        .then((res) => {
+            if (!res.ok) throw new Error("Failed to delete favorite");
+            return res.json();
+        })
+        .then(() => {
+            // Update the front-end store to remove the deleted favorite
+            const filteredArray = store.favorites.filter(
+                (element) => element.id !== favoriteToDelete.id
+            );
+            setStore({ favorites: filteredArray }); // Update the store
+            console.log("Favorite deleted successfully");
+        })
+        .catch((err) => console.error("Error deleting favorite:", err));
+},
+
 
 
 			// Use getActions to call a function within a fuction
@@ -85,7 +90,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 			loadSomeData: () => {
-				fetch("https://obscure-space-palm-tree-x596gxj994wwfvwg4-3000.app.github.dev/user/1/favorites") // Replace `1` with the appropriate user ID if dynamic
+				fetch(`https://obscure-space-palm-tree-x596gxj994wwfvwg4-3000.app.github.dev/user/${getStore().uid}/favorites`) // Replace `1` with the appropriate user ID if dynamic
 					.then((res) => res.json())
 					.then((data) => {
 						setStore({ favorites: data }); // Store favorites in the global state
