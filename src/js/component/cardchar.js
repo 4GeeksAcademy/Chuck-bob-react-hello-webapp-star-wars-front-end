@@ -7,9 +7,12 @@ import { Context } from "../store/appContext";
 
 const CardChar = (props) => {
 
-	const [character, setCharacter] = useState([]); // Initialize as an empty array
-	const [uid, setUid] = useState("");
+	const [character, setCharacter] = useState({}); // Initialize as an empty array
 	const { store, actions } = useContext(Context);
+
+	const [uid, setUid] = useState(0);
+
+
 
 	useEffect(() => {
 		fetch(props.url) // Assuming `props.url` points to `/people/<id>`
@@ -17,7 +20,9 @@ const CardChar = (props) => {
 			.then(data => {
 				if (data) {
 					setCharacter(data); // Adjust if backend response differs
-					setUid(data.id);    // Ensure `data.id` is correct
+					let splitUrl = data.url.split('/');
+					let id = splitUrl[splitUrl.length - 2];
+					setUid(id);// Ensure `data.id` is correct
 				}
 			})
 			.catch(err => console.error("Error fetching character details:", err));
@@ -34,10 +39,10 @@ const CardChar = (props) => {
 				<Link to={"/chardetail/" + uid}><button>Button</button>
 				</Link>
 				<button
-					onClick={() => actions.addFavorite(character.name, character.id || character.uid, "characters")}
+					onClick={() => actions.addFavorite(character.name, uid, "characters")}
 					className="favorite-button"
 				>
-					&#9829; {/* Heart symbol */}
+					&#9829;
 				</button>
 
 

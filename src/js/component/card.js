@@ -16,7 +16,9 @@ const Card = (props) => {
 			.then(data => {
 				if (data) {
 					setPlanet(data); // Adjust if backend response differs
-					setUid(data.id);    // Ensure `data.id` is correct
+					let splitUrl = data.url.split('/');
+					let id = splitUrl[splitUrl.length - 2];
+					setUid(id);// Ensure `data.id` is correct
 				}
 			})
 			.catch(err => console.error("Error fetching planets details:", err));
@@ -34,10 +36,10 @@ const Card = (props) => {
 				<Link to={"/planetdetail/" + uid}><button>Button</button>
 				</Link>
 				<button
-					onClick={() => actions.addFavorite(planet.name, planet.id || planet.uid, "planets")}
+					onClick={() => actions.addFavorite(planet.name, uid, "planets")}
 					className="favorite-button"
 				>
-					&#9829; {/* Heart symbol */}
+					&#9829; {/* This renders a heart symbol */}
 				</button>
 
 

@@ -12,7 +12,7 @@ const CharDetail = (props) => {
 
 
 	useEffect(() => {
-		fetch("https://www.swapi.tech/api/people/" + params.uid)
+		fetch("https://swapi.tech/api/people/" + params.uid)
 			.then(res => res.json())
 			.then((data) => {
 				setCharacter(data.result.properties)
